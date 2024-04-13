@@ -20,7 +20,7 @@ public class HotelController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:create')")
-    @Hidden
+
     public ResponseEntity<?> save(
             @RequestBody HotelRequest request
     ) {
@@ -30,7 +30,7 @@ public class HotelController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('admin:read')")
-    @Hidden
+
     public ResponseEntity<List<Hotel>> findAllreservations() {
         return ResponseEntity.ok(service.findAll());
     }

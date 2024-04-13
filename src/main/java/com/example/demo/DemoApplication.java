@@ -18,7 +18,7 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-	@Bean
+	/*@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthenticationService service
 	) {
@@ -42,5 +42,5 @@ public class DemoApplication {
 			System.out.println("Manager token: " + service.register(manager).getAccessToken());
 
 		};
-	}
+	}*/
 }

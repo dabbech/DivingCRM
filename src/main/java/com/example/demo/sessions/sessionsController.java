@@ -22,7 +22,6 @@ public class sessionsController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:create')")
-    @Hidden
     public ResponseEntity<?> save(
             @RequestBody sessionsRequest request
     ) {
@@ -32,7 +31,6 @@ public class sessionsController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('admin:read')")
-    @Hidden
     public ResponseEntity<List<sessions>> findAllsessions() {
         return ResponseEntity.ok(service.findAll());
     }

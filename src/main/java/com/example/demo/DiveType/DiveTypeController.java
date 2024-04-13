@@ -20,7 +20,7 @@ public class DiveTypeController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:create')")
-    @Hidden
+
     public ResponseEntity<?> save(
             @RequestBody DiveTypeRequest request
     ) {
@@ -30,7 +30,7 @@ public class DiveTypeController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('admin:read')")
-    @Hidden
+
     public ResponseEntity<List<DiveType>> findAllreservations() {
         return ResponseEntity.ok(service.findAll());
     }

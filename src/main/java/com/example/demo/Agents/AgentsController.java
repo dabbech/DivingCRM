@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Reservation")
+@RequestMapping("/api/v1/Agents")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
 public class AgentsController {
@@ -20,7 +20,7 @@ public class AgentsController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:create')")
-    @Hidden
+
     public ResponseEntity<?> save(
             @RequestBody AgentsRequest request
     ) {
@@ -30,7 +30,7 @@ public class AgentsController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('admin:read')")
-    @Hidden
+
     public ResponseEntity<List<Agents>> findAllreservations() {
         return ResponseEntity.ok(service.findAll());
     }
