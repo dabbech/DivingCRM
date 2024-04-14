@@ -20,12 +20,9 @@ public class ReservationService {
                 .id(request.getId())
                 .date(request.getDate())
                 .createdBy(request.getCreatedBy())
-                .agentId(request.getAgentId())
                 .name(request.getName())
                 .numberOfPersons(request.getNumberOfPersons())
-                .hotel(request.getHotel())
                 .needsPickUp(request.isNeedsPickUp())
-                .typeOfDive(request.getTypeOfDive())
                 .price(request.getPrice())
                 .build();
         repository.save(Reservations);

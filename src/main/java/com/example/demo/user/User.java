@@ -1,5 +1,6 @@
 package com.example.demo.user;
 
+import com.example.demo.Club.Club;
 import com.example.demo.token.Token;
 import jakarta.persistence.*;
 
@@ -29,6 +30,14 @@ public class User implements UserDetails {
   private String lastname;
   private String email;
   private String password;
+
+  @ManyToOne
+  @JoinColumn(name = "club_id")
+  private Club club;
+
+  @ManyToOne
+  @JoinColumn(name = "admin_id") // Reference to the admin who is responsible for this user
+  private User admin;
 
   @Enumerated(EnumType.STRING)
   private Role role;

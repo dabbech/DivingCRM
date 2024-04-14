@@ -1,5 +1,8 @@
 package com.example.demo.Reservation;
 
+import com.example.demo.Agents.Agents;
+import com.example.demo.DiveType.DiveType;
+import com.example.demo.Hotel.Hotel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,9 +36,17 @@ public class Reservation {
 
     private String name;
     private int numberOfPersons;
-    private String hotel;
     private boolean needsPickUp;
-    private String typeOfDive;
+    @ManyToOne
+    @JoinColumn(name = "divetype_id")
+    private DiveType typeOfDive;
     private double price;
-    private UUID agentId;
+
+    @ManyToOne
+    @JoinColumn(name = "agent_id")
+    private Agents agent;
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 }

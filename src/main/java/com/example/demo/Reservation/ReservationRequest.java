@@ -18,9 +18,7 @@ public class ReservationRequest {
     private UUID createdBy;
     private String name;
     private int numberOfPersons;
-    private String hotel;
     private boolean needsPickUp;
-    private String typeOfDive;
     private double price;
-    private UUID agentId;
+
 }
