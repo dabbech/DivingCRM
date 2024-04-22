@@ -1,7 +1,9 @@
 package com.example.demo.user;
 
 import com.example.demo.Club.Club;
+import com.example.demo.Reservation.Reservation;
 import com.example.demo.token.Token;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -38,6 +40,16 @@ public class User implements UserDetails {
   @ManyToOne
   @JoinColumn(name = "admin_id") // Reference to the admin who is responsible for this user
   private User admin;
+  @OneToMany(mappedBy = "createdBy")
+  private List<Reservation> reservations;
+
+  public Club getClub() {
+    return club;
+  }
+
+  public void setClub(Club club) {
+    this.club = club;
+  }
 
   @Enumerated(EnumType.STRING)
   private Role role;

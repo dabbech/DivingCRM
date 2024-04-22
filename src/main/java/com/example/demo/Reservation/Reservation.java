@@ -3,6 +3,8 @@ package com.example.demo.Reservation;
 import com.example.demo.Agents.Agents;
 import com.example.demo.DiveType.DiveType;
 import com.example.demo.Hotel.Hotel;
+import com.example.demo.sessions.sessions;
+import com.example.demo.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,27 +28,29 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime date;
 
-    @CreatedBy
-    @Column(nullable = false, updatable = false)
-    private UUID createdBy;
+
 
     private String name;
     private int numberOfPersons;
     private boolean needsPickUp;
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "divetype_id")
     private DiveType typeOfDive;
     private double price;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "agent_id")
     private Agents agent;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User createdBy;
+
+
 }

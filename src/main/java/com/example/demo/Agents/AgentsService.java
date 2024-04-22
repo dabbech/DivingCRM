@@ -1,8 +1,13 @@
 package com.example.demo.Agents;
 
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -11,14 +16,40 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AgentsService {
     private final AgentsRepository repository;
-
+    private final UserRepository userRepository;
     public void save(AgentsRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();// Assuming the user ID is stored as a string
+        User currentUser = userRepository.findByEmail(username);
         var agent = Agents.builder()
                 .id(request.getId())
                 .agentName(request.getAgentName())
                 .phoneNumber(request.getPhoneNumber())
+                .percentage(request.getPercentage())
+                .club(currentUser.getClub())
                 .build();
         repository.save(agent);
+    }
+
+    public List<AgentsResponse> getAgentsByClub() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();// Assuming the user ID is stored as a string
+        User currentUser = userRepository.findByEmail(username);
+        List<Agents> uniqueAgents = repository.findByClub(currentUser.getClub());
+
+
+
+
+        List<AgentsResponse> agentResponses = new ArrayList<>();
+        for (Agents agent : uniqueAgents) {
+            AgentsResponse response = AgentsResponse.builder()
+                    .agentName(agent.getAgentName())
+                    .phoneNumber(agent.getPhoneNumber())
+                    .percentage(agent.getPercentage())
+                    .build();
+            agentResponses.add(response);
+        }
+        return agentResponses;
     }
 
     public List<Agents> findAll() {

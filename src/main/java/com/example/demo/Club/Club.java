@@ -3,6 +3,7 @@ package com.example.demo.Club;
 
 
 import com.example.demo.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class Club {
     private String name;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "admin_id") // Reference to the admin responsible for this club
     private User admin;
 

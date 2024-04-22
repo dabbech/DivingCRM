@@ -1,5 +1,6 @@
 package com.example.demo.DiveType;
 
+import com.example.demo.Club.Club;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +22,7 @@ public class DiveType {
     private UUID id;
     private String name;
     private double price;
+    @ManyToOne
+    @JoinColumn(name = "club_id")
+    private Club club;
 }

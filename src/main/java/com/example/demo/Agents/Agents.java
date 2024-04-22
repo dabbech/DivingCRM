@@ -1,5 +1,7 @@
 package com.example.demo.Agents;
 
+import com.example.demo.Club.Club;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +23,9 @@ public class Agents {
     private UUID id;
     private String agentName;
     private String phoneNumber;
+    @Nullable
+    private int percentage ;
+    @ManyToOne
+    @JoinColumn(name = "club_id")
+    private Club club;
 }

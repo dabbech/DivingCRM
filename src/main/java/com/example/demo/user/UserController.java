@@ -1,11 +1,11 @@
 package com.example.demo.user;
 
+import com.example.demo.auth.AuthenticationResponse;
+import com.example.demo.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -23,5 +23,12 @@ public class UserController {
     ) {
         service.changePassword(request, connectedUser);
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("/adduser")
+    @PreAuthorize("hasAuthority('admin:create')")
+    public ResponseEntity<AuthenticationResponse> adduser(
+            @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.adduser(request));
     }
 }

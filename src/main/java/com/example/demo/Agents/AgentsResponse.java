@@ -4,14 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @Builder
-public class AgentsRequest {
-    private UUID id;
-
+public class AgentsResponse {
     private String agentName;
     private String phoneNumber;
     private int percentage;

@@ -2,15 +2,13 @@ package com.example.demo.sessions;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/sessions")
@@ -33,5 +31,28 @@ public class sessionsController {
     @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<List<sessions>> findAllsessions() {
         return ResponseEntity.ok(service.findAll());
+    }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('admin:update')")
+    public ResponseEntity<?> update(
+            @PathVariable UUID id,
+            @RequestBody sessionsRequest request
+    ) {
+        try {
+            service.update(id, request);
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('admin:delete')")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+        try {
+            service.delete(id);
+            return ResponseEntity.ok().build();
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

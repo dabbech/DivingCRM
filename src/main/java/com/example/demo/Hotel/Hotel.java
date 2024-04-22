@@ -1,5 +1,6 @@
 package com.example.demo.Hotel;
 
+import com.example.demo.Club.Club;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,4 +21,7 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "club_id")
+    private Club club;
 }

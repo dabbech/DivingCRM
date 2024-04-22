@@ -4,11 +4,13 @@ import com.example.demo.Agents.Agents;
 import com.example.demo.Agents.AgentsRequest;
 import com.example.demo.Agents.AgentsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/Clubs")
@@ -27,5 +29,26 @@ public class ClubController {
     @GetMapping
     public ResponseEntity<List<Club>> findAllreservations() {
         return ResponseEntity.ok(service.findAll());
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(
+            @PathVariable UUID id,
+            @RequestBody ClubRequest request
+    ) {
+        try {
+            service.update(id, request);
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+        try {
+            service.delete(id);
+            return ResponseEntity.ok().build();
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
